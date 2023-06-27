@@ -32,6 +32,14 @@
 		{
 			"Name": "WaterExtras",
 			"Enabled": true
+		},
+		{
+			"Name": "CustomizableSequencerTracks",
+			"Enabled": true
+		},
+		{
+			"Name": "SequencerPlaylists",
+			"Enabled": true
 		}
 	]
 }
