@@ -12,20 +12,14 @@ class UGameStateMachine : public UObject
 	TMap<UClass*, IExitableState*> States;
 	IExitableState* CurrentState;
 
-public:
-	// Prevent garbage collection of states
 	UPROPERTY()
-	TArray<UObject*> StateObjects;
+	TArray<UObject*> AntiGarbageStateObjects;
 
+public:
 	void CreateStates()
 	{
-		UBootstrapState* BootstrapState = NewObject<UBootstrapState>(this);
-		States.Add(UBootstrapState::StaticClass(), BootstrapState);
-		StateObjects.Add(BootstrapState);
-
-		ULoadLevelState* LoadLevelState = NewObject<ULoadLevelState>(this);
-		States.Add(ULoadLevelState::StaticClass(), LoadLevelState);
-		StateObjects.Add(LoadLevelState);
+		CreateState<UBootstrapState>();
+		CreateState<ULoadLevelState>();
 	}
 
 	void SetWorld(UWorld* World)
@@ -55,6 +49,7 @@ public:
 		return static_cast<TState*>(States[stateClass]);
 	}
 
+private:
 	template <typename TState>
 	TState* LoadState()
 	{
@@ -64,5 +59,13 @@ public:
 		TState* state = GetState<TState>();
 		CurrentState = state;
 		return state;
+	}
+
+	template <typename TState>
+	void CreateState()
+	{
+		TState* State = NewObject<TState>(this);
+		States.Add(TState::StaticClass(), State);
+		AntiGarbageStateObjects.Add(State);
 	}
 };

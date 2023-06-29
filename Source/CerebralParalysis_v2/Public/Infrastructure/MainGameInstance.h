@@ -33,7 +33,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "States")
 	void EnterLoadLevelState();
 
-	UGameStateMachine* GetGameStateMachina() const
+	UGameStateMachine* GetGameStateMachine() const
 	{
 		return MainGameStateMachine;
 	}

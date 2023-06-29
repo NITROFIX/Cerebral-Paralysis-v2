@@ -20,11 +20,7 @@ void UMainGameInstance::Init()
 void UMainGameInstance::OnWorldChanged(UWorld* OldWorld, UWorld* NewWorld)
 {
 	Super::OnWorldChanged(OldWorld, NewWorld);
-
-	// if (IsInitialized)
-	// 	return;
-	//
-	// IsInitialized = true;
+	
 	MainGameStateMachine->SetWorld(NewWorld);
 }
 
