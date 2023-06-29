@@ -10,8 +10,6 @@ class ULoadLevelState : public UObject, public IState
 {
 	GENERATED_BODY()
 
-	ULoadLevelState();
-
 private:
 	UPROPERTY()
 	UWorld* CurrentWorld;

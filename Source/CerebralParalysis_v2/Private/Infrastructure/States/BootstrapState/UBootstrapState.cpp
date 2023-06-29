@@ -1,30 +1,30 @@
-﻿
-#include "Infrastructure/States/BootstrapState/UBootstrapState.h"
+﻿#include "Infrastructure/States/BootstrapState/UBootstrapState.h"
 
 #include "Infrastructure/MainGameInstance.h"
 #include "Infrastructure/Subsystems/LoadLevelSubsystem.h"
+#include "StaticData/LevelNames.h"
 
 void UBootstrapState::Enter()
 {
-	IState::Enter();
-	
-	UGameInstance* GameInstance = CurrentWorld->GetGameInstance();
-	UMainGameInstance* MainGameInstance = Cast<UMainGameInstance>(GameInstance);
-	UGameStateMachine* GameStateMachine = MainGameInstance->GetGameStateMachina();
-	
-	ConstructSubsystems(GameInstance);
+	CurrentGameInstance = CurrentWorld->GetGameInstance();
 
-	GameStateMachine->Enter<ULoadLevelState>();
-}
+	ConstructSubsystems(CurrentGameInstance);
 
-void UBootstrapState::ConstructSubsystems(const UGameInstance* GameInstance) const
-{
-	GameInstance->GetSubsystem<ULoadLevelSubsystem>()->Construct(CurrentWorld);
+	OnLoadedDelegate.BindUObject(this, &UBootstrapState::OnLoaded);
+	CurrentGameInstance->GetSubsystem<ULoadLevelSubsystem>()->LoadLevel(CurrentWorld, FLevelNames::Bootstrap, OnLoadedDelegate);
 }
 
 void UBootstrapState::Exit()
 {
-	IExitableState::Exit();
+}
 
-	UE_LOG(LogTemp, Warning, TEXT("Exited bootstrap state"));
+void UBootstrapState::ConstructSubsystems(const UGameInstance* GameInstance) const
+{
+	
+}
+
+
+void UBootstrapState::OnLoaded(UWorld* World) const
+{
+	Cast<UMainGameInstance>(CurrentGameInstance)->GetGameStateMachina()->Enter<ULoadLevelState>();
 }

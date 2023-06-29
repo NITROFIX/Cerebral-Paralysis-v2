@@ -13,10 +13,19 @@ class UGameStateMachine : public UObject
 	IExitableState* CurrentState;
 
 public:
+	// Prevent garbage collection of states
+	UPROPERTY()
+	TArray<UObject*> StateObjects;
+
 	void CreateStates()
 	{
-		States.Add(UBootstrapState::StaticClass(), NewObject<UBootstrapState>());
-		States.Add(ULoadLevelState::StaticClass(), NewObject<ULoadLevelState>());
+		UBootstrapState* BootstrapState = NewObject<UBootstrapState>(this);
+		States.Add(UBootstrapState::StaticClass(), BootstrapState);
+		StateObjects.Add(BootstrapState);
+
+		ULoadLevelState* LoadLevelState = NewObject<ULoadLevelState>(this);
+		States.Add(ULoadLevelState::StaticClass(), LoadLevelState);
+		StateObjects.Add(LoadLevelState);
 	}
 
 	void SetWorld(UWorld* World)
