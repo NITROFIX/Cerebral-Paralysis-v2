@@ -22,6 +22,7 @@ void UMainGameInstance::OnWorldChanged(UWorld* OldWorld, UWorld* NewWorld)
 	Super::OnWorldChanged(OldWorld, NewWorld);
 	
 	MainGameStateMachine->SetWorld(NewWorld);
+	CurrentWorld = NewWorld;
 }
 
 

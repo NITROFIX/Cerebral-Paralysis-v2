@@ -23,7 +23,6 @@ void UBootstrapState::Exit()
 
 void UBootstrapState::LoadSubsystems(const UGameInstance* GameInstance) const
 {
-	TSubclassOf<AActor> ActorClassFilter = ADataLoader::StaticClass();
 	for (TActorIterator<ADataLoader> It(CurrentWorld); It; ++It)
 	{
 		ADataLoader* Actor = *It;

@@ -18,10 +18,15 @@ class CEREBRALPARALYSIS_V2_API UEnemyFactorySubsystem : public UGameInstanceSubs
 	UPROPERTY()
 	FEnemyFactoryData Data;
 
+	bool DataLoaded;
+
 public:
 	void Construct(const FEnemyFactoryData NewData)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Data Loaded"));
 		Data = NewData;
+		DataLoaded = true;
 	}
+
+	UFUNCTION(BlueprintCallable)
+	void SpawnZombieSoldier(UWorld* World, const FVector Position) const;
 };

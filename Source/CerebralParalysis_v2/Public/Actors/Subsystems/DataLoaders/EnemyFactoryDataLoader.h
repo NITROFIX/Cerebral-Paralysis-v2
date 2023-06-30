@@ -18,9 +18,7 @@ class CEREBRALPARALYSIS_V2_API AEnemyFactoryDataLoader : public ADataLoader
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FEnemyFactoryData Data;
-	TScriptDelegate<> a;
 
 	virtual void LoadData() override;
-
 	virtual void BeginPlay() override;
 };
