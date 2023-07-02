@@ -1,30 +1,39 @@
-﻿
-#include "Infrastructure/States/BootstrapState/UBootstrapState.h"
+﻿#include "Infrastructure/States/BootstrapState/UBootstrapState.h"
 
+#include "EngineUtils.h"
+#include "Actors/Subsystems/DataLoader.h"
+#include "Actors/Subsystems/DataLoaders/EnemyFactoryDataLoader.h"
 #include "Infrastructure/MainGameInstance.h"
 #include "Infrastructure/Subsystems/LoadLevelSubsystem.h"
+#include "StaticData/LevelNames.h"
 
 void UBootstrapState::Enter()
 {
-	IState::Enter();
-	
-	UGameInstance* GameInstance = CurrentWorld->GetGameInstance();
-	UMainGameInstance* MainGameInstance = Cast<UMainGameInstance>(GameInstance);
-	UGameStateMachine* GameStateMachine = MainGameInstance->GetGameStateMachina();
-	
-	ConstructSubsystems(GameInstance);
+	CurrentGameInstance = CurrentWorld->GetGameInstance();
 
-	GameStateMachine->Enter<ULoadLevelState>();
-}
+	
 
-void UBootstrapState::ConstructSubsystems(const UGameInstance* GameInstance) const
-{
-	GameInstance->GetSubsystem<ULoadLevelSubsystem>()->Construct(CurrentWorld);
+	OnLoadedDelegate.BindUObject(this, &UBootstrapState::OnLoaded);
+	CurrentGameInstance->GetSubsystem<ULoadLevelSubsystem>()->LoadLevel(CurrentWorld, FLevelNames::Bootstrap, OnLoadedDelegate);
 }
 
 void UBootstrapState::Exit()
 {
-	IExitableState::Exit();
+}
 
-	UE_LOG(LogTemp, Warning, TEXT("Exited bootstrap state"));
+void UBootstrapState::LoadSubsystems(const UGameInstance* GameInstance) const
+{
+	for (TActorIterator<ADataLoader> It(CurrentWorld); It; ++It)
+	{
+		ADataLoader* Actor = *It;
+		Actor->LoadData();
+	}
+	UE_LOG(LogTemp, Warning, TEXT("End of constuction"))
+}
+
+
+void UBootstrapState::OnLoaded(UWorld* World) const
+{
+	LoadSubsystems(CurrentGameInstance);
+	Cast<UMainGameInstance>(CurrentGameInstance)->GetGameStateMachine()->Enter<ULoadLevelState>();
 }

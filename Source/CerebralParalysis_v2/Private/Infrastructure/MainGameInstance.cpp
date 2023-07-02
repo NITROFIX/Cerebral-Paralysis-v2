@@ -6,7 +6,6 @@
 #include "Infrastructure/States/BootstrapState/UBootstrapState.h"
 
 
-
 UMainGameInstance::UMainGameInstance()
 {
 	MainGameStateMachine = NewObject<UGameStateMachine>();
@@ -21,12 +20,9 @@ void UMainGameInstance::Init()
 void UMainGameInstance::OnWorldChanged(UWorld* OldWorld, UWorld* NewWorld)
 {
 	Super::OnWorldChanged(OldWorld, NewWorld);
-
-	if (IsInitialized)
-		return;
-
-	IsInitialized = true;
+	
 	MainGameStateMachine->SetWorld(NewWorld);
+	CurrentWorld = NewWorld;
 }
 
 

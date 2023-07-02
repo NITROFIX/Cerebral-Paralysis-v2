@@ -16,16 +16,8 @@ UCLASS()
 	GENERATED_BODY()
 
 public:
-	void Construct(UWorld* NewWorld);
-
-	void LoadLevel(const FName& SceneName, FOnLoaded Action);
-	void OnPostLoadMap(UWorld* World);
-
-	UPROPERTY()
-	UWorld* CurrentWorld;
+	void LoadLevel(const UWorld* CurrentWorld, const FName& SceneName, FOnLoaded Action);
+	void OnPostLoadMap(UWorld* World) const;
+	
 	FOnLoaded OnLoadCallback;
-
-
-private:
-
 };

@@ -15,6 +15,31 @@ UCLASS()
 class CEREBRALPARALYSIS_V2_API UMainGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
+
+	UPROPERTY()
+	UGameStateMachine* MainGameStateMachine;
+
+	UPROPERTY()
+	UWorld* CurrentWorld;
+	
+	bool IsInitialized;
+	
+public:
+	UFUNCTION(BlueprintCallable, Category = "States")
+	void EnterLoadLevelState();
+
+	UGameStateMachine* GetGameStateMachine() const
+	{
+		return MainGameStateMachine;
+	}
+
+	UFUNCTION(BlueprintCallable)
+	UWorld* GetCurrentWorld() const
+	{
+		return CurrentWorld;
+	}
+
+private:
 	virtual void Init() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Game")
@@ -22,19 +47,4 @@ class CEREBRALPARALYSIS_V2_API UMainGameInstance : public UGameInstance
 	
 	virtual void OnWorldChanged(UWorld* OldWorld, UWorld* NewWorld) override;
 	UMainGameInstance();
-
-private:
-	UPROPERTY()
-	UGameStateMachine* MainGameStateMachine;
-
-	bool IsInitialized;
-
-public:
-	UFUNCTION(BlueprintCallable, Category = "States")
-	void EnterLoadLevelState();
-
-	UGameStateMachine* GetGameStateMachina() const
-	{
-		return MainGameStateMachine;
-	}
 };
