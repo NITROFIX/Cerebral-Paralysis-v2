@@ -4,7 +4,6 @@
 #include "Infrastructure/States/LoadLevelState/ULoadLevelState.h"
 #include "UBootstrapState.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDataLoad);
 UCLASS()
 class UBootstrapState : public UObject, public IState
 {
@@ -19,8 +18,6 @@ class UBootstrapState : public UObject, public IState
 	UGameInstance* CurrentGameInstance;
 
 public:	
-	FOnDataLoad OnDataLoad;
-	
 	virtual void SetWorld(UWorld* NewWorld) override
 	{
 		CurrentWorld = NewWorld;

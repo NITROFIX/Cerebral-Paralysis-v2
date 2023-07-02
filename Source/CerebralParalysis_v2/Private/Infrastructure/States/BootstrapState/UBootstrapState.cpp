@@ -11,8 +11,6 @@ void UBootstrapState::Enter()
 {
 	CurrentGameInstance = CurrentWorld->GetGameInstance();
 
-	
-
 	OnLoadedDelegate.BindUObject(this, &UBootstrapState::OnLoaded);
 	CurrentGameInstance->GetSubsystem<ULoadLevelSubsystem>()->LoadLevel(CurrentWorld, FLevelNames::Bootstrap, OnLoadedDelegate);
 }
