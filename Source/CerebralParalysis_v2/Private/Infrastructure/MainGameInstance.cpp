@@ -1,8 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Cerebral Paralysis... Think twice ;)
 
 
 #include "Infrastructure/MainGameInstance.h"
-
 #include "Infrastructure/States/BootstrapState/UBootstrapState.h"
 
 

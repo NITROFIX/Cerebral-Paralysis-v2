@@ -10,9 +10,6 @@
 void AEnemyFactoryDataLoader::BeginPlay()
 {
 	Super::BeginPlay();
-	FScriptDelegate Delegate;
-	Delegate.BindUFunction(this, FName("LoadData"));
-	Cast<UMainGameInstance>(GetWorld()->GetGameInstance())->GetGameStateMachine()->GetState<UBootstrapState>()->OnDataLoad.Add(Delegate);
 }
 
 void AEnemyFactoryDataLoader::LoadData()
