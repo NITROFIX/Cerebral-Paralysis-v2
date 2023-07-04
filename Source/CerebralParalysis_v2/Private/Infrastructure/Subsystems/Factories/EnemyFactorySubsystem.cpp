@@ -3,10 +3,12 @@
 
 #include "Infrastructure/Subsystems/Factories/EnemyFactorySubsystem.h"
 
-void UEnemyFactorySubsystem::SpawnZombieSoldier(UWorld* World, const FVector Position) const
+void UEnemyFactorySubsystem::SpawnZombieSoldier(const FVector Position) const
 {
-	if (!World || !DataLoaded)
+	if (!GetWorld() || !DataLoaded)
 		return;
-	
-	World->SpawnActor(Data.ZombieSoldier, &Position);
+
+	FActorSpawnParameters SpawnParameters;
+	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+	GetWorld()->SpawnActor(Data.ZombieSoldier, &Position, &FRotator::ZeroRotator, SpawnParameters);
 }
