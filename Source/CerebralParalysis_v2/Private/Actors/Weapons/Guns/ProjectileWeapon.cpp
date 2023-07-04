@@ -24,6 +24,7 @@ void AProjectileWeapon::MakeShot()
 	GetWorldTimerManager().SetTimer(FireTimerHandle, this, &AProjectileWeapon::ReloadFire, FireReloadTime, false,
 									FireReloadTime);
 	ABaseBullet* SpawnedProjectile = GetWorld()->SpawnActor<ABaseBullet>(Projectile, TraceStart, FRotator::ZeroRotator);
+	SpawnedProjectile->SetTeam(Team);
 	SpawnedProjectile->SetDirection(TraceEnd - TraceStart);
 	CanFire = false;
 }
