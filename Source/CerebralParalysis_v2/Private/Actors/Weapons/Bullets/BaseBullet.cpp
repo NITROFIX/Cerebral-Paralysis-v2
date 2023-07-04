@@ -3,25 +3,25 @@
 
 #include "Actors/Weapons/Bullets/BaseBullet.h"
 
-// Sets default values
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "StaticData/ETeam.h"
+
 ABaseBullet::ABaseBullet()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
+	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComponenent");
 }
 
-// Called when the game starts or when spawned
 void ABaseBullet::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
-// Called every frame
-void ABaseBullet::Tick(float DeltaTime)
+void ABaseBullet::SetDirection(const FVector Direction) const
 {
-	Super::Tick(DeltaTime);
+	ProjectileMovementComponent->Velocity = Direction * ProjectileMovementComponent->InitialSpeed;
 
 }
 

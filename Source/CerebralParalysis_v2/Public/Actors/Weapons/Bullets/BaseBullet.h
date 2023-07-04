@@ -4,23 +4,25 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "BaseBullet.generated.h"
 
 UCLASS()
 class CEREBRALPARALYSIS_V2_API ABaseBullet : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
+
+	UPROPERTY(EditAnywhere)
+	UProjectileMovementComponent* ProjectileMovementComponent;
+
+public:
 	ABaseBullet();
 
+	UFUNCTION(BlueprintCallable)
+	void SetDirection(FVector Direction) const;
+
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 };

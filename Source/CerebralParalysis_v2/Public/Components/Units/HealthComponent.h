@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "StaticData/ETeam.h"
 #include "HealthComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChanged, float, Health);
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 
 
@@ -24,8 +26,14 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnDeath OnDeath;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	ETeam HealthTeam;
+
 	UFUNCTION(BlueprintCallable)
-	void TakeDamage(float Damage);
+	void TakeDamage(ETeam Team, float Damage);
+
+	UFUNCTION(BlueprintCallable)
+	bool CanTakeDamage(ETeam Team);
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health")
