@@ -13,17 +13,22 @@ void AProjectileWeapon::MakeShot()
 {
 	if (!GetWorld())
 		return;
-	
-	UE_LOG(LogTemp, Warning, TEXT("GAAA"));
+
 
 	FVector TraceStart;
 	FVector TraceEnd;
-	
+
 	CalculateTrace(TraceStart, TraceEnd);
 
 	GetWorldTimerManager().SetTimer(FireTimerHandle, this, &AProjectileWeapon::ReloadFire, FireReloadTime, false,
-									FireReloadTime);
-	ABaseBullet* SpawnedProjectile = GetWorld()->SpawnActor<ABaseBullet>(Projectile, TraceStart, FRotator::ZeroRotator);
+	                                FireReloadTime);
+	FActorSpawnParameters params;
+	params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+	ABaseBullet* SpawnedProjectile = GetWorld()->SpawnActor<ABaseBullet>(Projectile, TraceStart, FRotator::ZeroRotator, params);
+
+	if (!SpawnedProjectile)
+		return;
+
 	SpawnedProjectile->SetTeam(Team);
 	SpawnedProjectile->SetDirection(TraceEnd - TraceStart);
 	CanFire = false;
