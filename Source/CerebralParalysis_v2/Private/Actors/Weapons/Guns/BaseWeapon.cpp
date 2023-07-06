@@ -32,6 +32,11 @@ void ABaseWeapon::StopFire()
 	IsFiring = false;
 }
 
+void ABaseWeapon::ForceFire()
+{
+	MakeShot();
+}
+
 void ABaseWeapon::MakeShot(){}
 
 FTransform ABaseWeapon::GetMuzzleTransform() const

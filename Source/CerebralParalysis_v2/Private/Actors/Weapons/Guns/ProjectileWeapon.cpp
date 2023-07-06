@@ -13,8 +13,7 @@ void AProjectileWeapon::MakeShot()
 {
 	if (!GetWorld())
 		return;
-
-
+	
 	FVector TraceStart;
 	FVector TraceEnd;
 

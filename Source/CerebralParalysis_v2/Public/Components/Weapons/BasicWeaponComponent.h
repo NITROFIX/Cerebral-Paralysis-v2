@@ -21,6 +21,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void StopFire() const;
+
+	UFUNCTION(BlueprintCallable)
+	void ForceFire() const;
 	
 	void NextWeapon();
 

@@ -72,6 +72,14 @@ void UBasicWeaponComponent::StopFire() const
 	CurrentWeapon->StopFire();
 }
 
+void UBasicWeaponComponent::ForceFire() const
+{
+	if (!CurrentWeapon)
+		return;
+
+	CurrentWeapon->ForceFire();
+}
+
 void UBasicWeaponComponent::SetDirection(FRotator Direction) const
 {
 	if (!CurrentWeapon)

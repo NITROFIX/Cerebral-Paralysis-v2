@@ -17,6 +17,7 @@ public:
 
 	virtual void StartFire();
 	virtual void StopFire();
+	void ForceFire();
 	void SetDirection(const FRotator Direction) { FireDirection = Direction; }
 
 protected:
