@@ -23,5 +23,5 @@ public:
 	}
 
 	virtual void Enter() override;
-	void OnLoaded(UWorld* World);
+	void OnLoaded(UWorld* World) const;
 };

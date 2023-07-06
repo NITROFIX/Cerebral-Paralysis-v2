@@ -1,17 +1,19 @@
 ﻿#include "Infrastructure/States/LoadLevelState/ULoadLevelState.h"
 #include "Infrastructure/Subsystems/LoadLevelSubsystem.h"
+#include "Infrastructure/Subsystems/Providers/FirstSceneProviderSubsystem.h"
 #include "StaticData/LevelNames.h"
 
 void ULoadLevelState::Enter()
 {
 	OnLoadedDelegate.BindUObject(this, &ULoadLevelState::OnLoaded);
 
-	UGameInstance* GameInstance = CurrentWorld->GetGameInstance();
+	const UGameInstance* GameInstance = CurrentWorld->GetGameInstance();
 	ULoadLevelSubsystem* LoadLevelSubsystem = GameInstance->GetSubsystem<ULoadLevelSubsystem>();
-	LoadLevelSubsystem->LoadLevel(CurrentWorld, FLevelNames::Level1, OnLoadedDelegate);
+	const FName LevelName = GameInstance->GetSubsystem<UFirstSceneProviderSubsystem>()->GetFirstSceneName();
+	LoadLevelSubsystem->LoadLevel(CurrentWorld, LevelName, OnLoadedDelegate);
 }
 
-void ULoadLevelState::OnLoaded(UWorld* World)
+void ULoadLevelState::OnLoaded(UWorld* World) const
 {
-	UE_LOG(LogTemp, Warning, TEXT("I WON"));
+	// =_=
 }

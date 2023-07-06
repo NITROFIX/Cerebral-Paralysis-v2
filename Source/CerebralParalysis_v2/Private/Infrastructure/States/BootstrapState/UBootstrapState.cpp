@@ -5,6 +5,7 @@
 #include "Actors/Subsystems/DataLoaders/EnemyFactoryDataLoader.h"
 #include "Infrastructure/MainGameInstance.h"
 #include "Infrastructure/Subsystems/LoadLevelSubsystem.h"
+#include "Infrastructure/Subsystems/Providers/FirstSceneProviderSubsystem.h"
 #include "StaticData/LevelNames.h"
 
 void UBootstrapState::Enter()
@@ -12,6 +13,8 @@ void UBootstrapState::Enter()
 	CurrentGameInstance = CurrentWorld->GetGameInstance();
 
 	OnLoadedDelegate.BindUObject(this, &UBootstrapState::OnLoaded);
+
+	CurrentGameInstance->GetSubsystem<UFirstSceneProviderSubsystem>()->SetFirstSceneName(CurrentWorld->GetFName());
 	CurrentGameInstance->GetSubsystem<ULoadLevelSubsystem>()->LoadLevel(CurrentWorld, FLevelNames::Bootstrap, OnLoadedDelegate);
 }
 
