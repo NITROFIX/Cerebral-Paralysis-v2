@@ -26,16 +26,6 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "VFX")
 	UWeaponFXComponent* WeaponFXComponent;
-	
-private:
-	virtual void TryFire() override;
-	virtual void MakeShot() override;
-
-	void CalculateTrace(FVector& TraceStart, FVector& TraceEnd) const;
-	void Raycast(FVector TraceStart, FVector TraceEnd, FHitResult& HitResult) const;
-	void Damage(FHitResult HitResult) const;
-	void ReloadFire();
-	void SpawnTraceFX(const FVector& TraceStart, const FVector& TraceEnd) const;
 
 	UPROPERTY(EditDefaultsOnly)
 	double BulletSpread;
@@ -48,4 +38,13 @@ private:
 
 	FTimerHandle FireTimerHandle;
 	
+private:
+	virtual void TryFire() override;
+	virtual void MakeShot() override;
+
+	void CalculateTrace(FVector& TraceStart, FVector& TraceEnd) const;
+	void Raycast(FVector TraceStart, FVector TraceEnd, FHitResult& HitResult) const;
+	void Damage(FHitResult HitResult) const;
+	void ReloadFire();
+	void SpawnTraceFX(const FVector& TraceStart, const FVector& TraceEnd) const;
 };

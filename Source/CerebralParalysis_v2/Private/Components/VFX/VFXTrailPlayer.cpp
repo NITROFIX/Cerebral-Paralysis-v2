@@ -33,3 +33,12 @@ void UVFXTrailPlayer::DetachSystem() const
 	CurrentTrailActor->Stop();
 }
 
+void UVFXTrailPlayer::DestroyTrailActor()
+{
+	if (!CurrentTrailActor)
+		return;
+
+	GetWorld()->DestroyActor(Cast<AActor> (CurrentTrailActor));
+	CurrentTrailActor = nullptr;
+}
+

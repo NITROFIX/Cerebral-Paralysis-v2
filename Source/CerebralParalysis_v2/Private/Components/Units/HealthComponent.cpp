@@ -14,17 +14,28 @@ void UHealthComponent::BeginPlay()
 	CurrentHealth = MaxHealth;
 }
 
-void UHealthComponent::TakeDamage(float Damage)
+void UHealthComponent::TakeDamage(ETeam Team, float Damage)
 {
-	if (IsDead)
+	if (CanTakeDamage(Team) == false)
 		return;
 
 	CurrentHealth -= Damage;
 
 	if (CurrentHealth < 0)
 		Die();
-	
+
 	OnHealthChanged.Broadcast(CurrentHealth);
+}
+
+bool UHealthComponent::CanTakeDamage(ETeam Team)
+{
+	if (IsDead)
+		return false;
+
+	if (Team == HealthTeam)
+		return false;
+
+	return true;
 }
 
 void UHealthComponent::Die()

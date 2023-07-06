@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "StaticData/ETeam.h"
 #include "BaseWeapon.generated.h"
 
 UCLASS()
@@ -20,6 +21,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	USkeletalMeshComponent* WeaponMeshComponent;
 
@@ -31,6 +33,9 @@ protected:
 
 	UPROPERTY()
 	FRotator FireDirection;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	ETeam Team;
 
 	bool IsFiring;
 	bool CanFire = true;

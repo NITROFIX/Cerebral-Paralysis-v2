@@ -31,6 +31,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void DetachSystem() const;
+
+	UFUNCTION(BlueprintCallable)
+	void DestroyTrailActor();
 	
 protected:
 	virtual void BeginPlay() override;

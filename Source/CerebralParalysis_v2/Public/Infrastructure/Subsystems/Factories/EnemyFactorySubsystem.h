@@ -28,5 +28,5 @@ public:
 	}
 
 	UFUNCTION(BlueprintCallable)
-	void SpawnZombieSoldier(UWorld* World, const FVector Position) const;
+	void SpawnZombieSoldier(const FVector Position) const;
 };

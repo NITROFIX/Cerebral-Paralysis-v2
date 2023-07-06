@@ -70,7 +70,7 @@ void ARaycastWeapon::Damage(const FHitResult HitResult) const
 	if (!Health)
 		return;
 	
-	Health->TakeDamage(DamageAmount);
+	Health->TakeDamage(Team, DamageAmount);
 }
 
 void ARaycastWeapon::ReloadFire()

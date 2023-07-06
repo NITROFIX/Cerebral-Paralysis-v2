@@ -15,9 +15,16 @@ class CEREBRALPARALYSIS_V2_API UBasicWeaponComponent : public UActorComponent
 
 public:
 	UBasicWeaponComponent();
+
+	UFUNCTION(BlueprintCallable)
 	void StartFire() const;
+
+	UFUNCTION(BlueprintCallable)
 	void StopFire() const;
+	
 	void NextWeapon();
+
+	UFUNCTION(BlueprintCallable)
 	void SetDirection(FRotator Direction) const;
 
 protected:
