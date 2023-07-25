@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Cerebral Paralysis... Think twice ;)
 
 
 #include "Actors/Weapons/Guns/RaycastWeapon.h"
@@ -15,7 +15,7 @@ ARaycastWeapon::ARaycastWeapon()
 
 void ARaycastWeapon::TryFire()
 {
-	if (IsFiring && CanFire)
+	if (CanFire)
 		MakeShot();
 }
 

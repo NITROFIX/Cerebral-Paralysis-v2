@@ -16,33 +16,13 @@ void ABaseWeapon::BeginPlay()
 	check(WeaponMeshComponent);
 }
 
-void ABaseWeapon::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	TryFire();
-}
-
-void ABaseWeapon::StartFire()
-{
-	IsFiring = true;
-}
-
-void ABaseWeapon::StopFire()
-{
-	IsFiring = false;
-}
-
-void ABaseWeapon::ForceFire()
-{
-	MakeShot();
-}
+void ABaseWeapon::TryFire(){}
 
 void ABaseWeapon::MakeShot(){}
 
 FTransform ABaseWeapon::GetMuzzleTransform() const
 {
-	//return WeaponMeshComponent->GetSocketTransform(MuzzleSocketName);
 	return WeaponMeshComponent->GetComponentTransform();
 }
 
-void ABaseWeapon::TryFire(){}
+

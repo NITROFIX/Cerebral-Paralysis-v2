@@ -14,11 +14,10 @@ class CEREBRALPARALYSIS_V2_API ABaseWeapon : public AActor
 
 public:
 	ABaseWeapon();
-
-	virtual void StartFire();
-	virtual void StopFire();
-	void ForceFire();
 	void SetDirection(const FRotator Direction) { FireDirection = Direction; }
+
+	virtual void TryFire();
+	virtual void MakeShot();
 
 protected:
 	virtual void BeginPlay() override;
@@ -29,23 +28,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FName MuzzleSocketName = "MuzzleFlashSocket";
 
-	UPROPERTY(EditDefaultsOnly)
-	float FireReloadTime;
-
-	UPROPERTY()
-	FRotator FireDirection;
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	ETeam Team;
-
+	
+	UPROPERTY()
+	FRotator FireDirection;
+	
 	bool IsFiring;
 	bool CanFire = true;
 
-	virtual void MakeShot();
-
 	FTransform GetMuzzleTransform() const;
-
-private:
-	virtual void TryFire();
-	virtual void Tick(float DeltaSeconds) override;
 };

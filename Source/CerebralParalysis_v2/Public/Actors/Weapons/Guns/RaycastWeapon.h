@@ -36,6 +36,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	FString TraceTargetName = "TraceTarget";
 
+	UPROPERTY(EditDefaultsOnly)
+	float FireReloadTime;
+
 	FTimerHandle FireTimerHandle;
 	
 private:

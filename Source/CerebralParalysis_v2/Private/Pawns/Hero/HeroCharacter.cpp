@@ -15,7 +15,7 @@ AHeroCharacter::AHeroCharacter()
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
 	CameraComponent->SetupAttachment(SpringArmComponent, USpringArmComponent::SocketName);
 
-	WeaponComponent = CreateDefaultSubobject<UBasicWeaponComponent>("Weapon Component");
+	WeaponComponent = CreateDefaultSubobject<UPlayerWeaponComponent>("Weapon Component");
 }
 
 void AHeroCharacter::BeginPlay()

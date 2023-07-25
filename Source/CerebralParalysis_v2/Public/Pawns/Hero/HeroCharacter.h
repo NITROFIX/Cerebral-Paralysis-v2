@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Camera/CameraComponent.h"
 #include "Components/Weapons/BasicWeaponComponent.h"
+#include "Components/Weapons/PlayerWeaponComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "HeroCharacter.generated.h"
@@ -43,7 +44,7 @@ public:
 	UCameraComponent* CameraComponent;
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
-	UBasicWeaponComponent* WeaponComponent;
+	UPlayerWeaponComponent* WeaponComponent;
 
 private:
 	FVector AdjustDirectionDependingOnObjectAngle(const FVector& Direction, const USceneComponent* TargetTransform) const;

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Cerebral Paralysis... Think twice ;)
 
 
 #include "Components/Weapons/BasicWeaponComponent.h"
@@ -10,13 +10,11 @@ UBasicWeaponComponent::UBasicWeaponComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
-
 void UBasicWeaponComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnWeapons();
+	SpawnWeapon();
 }
-
 
 void UBasicWeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
@@ -28,7 +26,7 @@ void UBasicWeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	CurrentWeapon = nullptr;
 }
 
-void UBasicWeaponComponent::SpawnWeapons()
+void UBasicWeaponComponent::SpawnWeapon()
 {
 	if (!GetWorld())
 		return;
@@ -45,42 +43,17 @@ void UBasicWeaponComponent::SpawnWeapons()
 	Weapon->SetOwner(Character);
  
 	AttachWeaponToSocket(Weapon, Character->GetMesh(), SocketName);
-
 	CurrentWeapon = Weapon;
 }
 
 void UBasicWeaponComponent::AttachWeaponToSocket(ABaseWeapon* Weapon, USceneComponent* SceneComponent, const FName& Name) const
 {
-	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, false);
+	const FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, false);
 	Weapon->AttachToComponent(SceneComponent, AttachmentRules, Name);
 }
 
 
-void UBasicWeaponComponent::StartFire() const
-{
-	if (!CurrentWeapon)
-		return;
-
-	CurrentWeapon->StartFire();
-}
-
-void UBasicWeaponComponent::StopFire() const
-{
-	if (!CurrentWeapon)
-		return;
-
-	CurrentWeapon->StopFire();
-}
-
-void UBasicWeaponComponent::ForceFire() const
-{
-	if (!CurrentWeapon)
-		return;
-
-	CurrentWeapon->ForceFire();
-}
-
-void UBasicWeaponComponent::SetDirection(FRotator Direction) const
+void UBasicWeaponComponent::SetDirection(const FRotator Direction) const
 {
 	if (!CurrentWeapon)
 		return;;

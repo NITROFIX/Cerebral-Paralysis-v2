@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float TraceMaxDistance = 1500;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float FireReloadTime;
+
 private:
 	FTimerHandle FireTimerHandle;
 	

@@ -5,7 +5,7 @@
 
 void AProjectileWeapon::TryFire()
 {
-	if (IsFiring && CanFire)
+	if (CanFire)
 		MakeShot();
 }
 
@@ -21,9 +21,9 @@ void AProjectileWeapon::MakeShot()
 
 	GetWorldTimerManager().SetTimer(FireTimerHandle, this, &AProjectileWeapon::ReloadFire, FireReloadTime, false,
 	                                FireReloadTime);
-	FActorSpawnParameters params;
-	params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-	ABaseBullet* SpawnedProjectile = GetWorld()->SpawnActor<ABaseBullet>(Projectile, TraceStart, FRotator::ZeroRotator, params);
+	FActorSpawnParameters Params;
+	Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+	ABaseBullet* SpawnedProjectile = GetWorld()->SpawnActor<ABaseBullet>(Projectile, TraceStart, FRotator::ZeroRotator, Params);
 
 	if (!SpawnedProjectile)
 		return;
