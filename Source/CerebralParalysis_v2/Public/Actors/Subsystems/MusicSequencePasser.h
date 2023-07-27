@@ -18,6 +18,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void TakeEasyHit() const;
 
+	UFUNCTION(BlueprintCallable)
+	void TakeMediumHit() const;
+
 protected:
 	virtual void BeginPlay() override;
 

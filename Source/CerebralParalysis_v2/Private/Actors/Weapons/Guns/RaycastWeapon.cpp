@@ -15,8 +15,8 @@ ARaycastWeapon::ARaycastWeapon()
 
 void ARaycastWeapon::TryFire()
 {
-	if (CanFire)
-		MakeShot();
+	//if (CanFire)
+	//	MakeShot();
 }
 
 void ARaycastWeapon::MakeShot()
@@ -40,7 +40,7 @@ void ARaycastWeapon::MakeShot()
 	}
 	
 	WeaponFXComponent->PlayImpactFX(HitResult);
-	CanFire = false;
+	//CanFire = false;
 	
 	SpawnTraceFX(TraceStart, TraceFXEnd);
 	GetWorldTimerManager().SetTimer(FireTimerHandle, this, &ARaycastWeapon::ReloadFire, FireReloadTime, false,
@@ -70,12 +70,12 @@ void ARaycastWeapon::Damage(const FHitResult HitResult) const
 	if (!Health)
 		return;
 	
-	Health->TakeDamage(Team, DamageAmount);
+	//Health->TakeDamage(Team, DamageAmount);
 }
 
 void ARaycastWeapon::ReloadFire()
 {
-	CanFire = true;
+	//CanFire = true;
 }
 
 void ARaycastWeapon::SpawnTraceFX(const FVector& TraceStart, const FVector& TraceEnd) const

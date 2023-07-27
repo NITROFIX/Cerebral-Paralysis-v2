@@ -16,10 +16,6 @@ void ABaseWeapon::BeginPlay()
 	check(WeaponMeshComponent);
 }
 
-void ABaseWeapon::TryFire(){}
-
-void ABaseWeapon::MakeShot(){}
-
 FTransform ABaseWeapon::GetMuzzleTransform() const
 {
 	return WeaponMeshComponent->GetComponentTransform();

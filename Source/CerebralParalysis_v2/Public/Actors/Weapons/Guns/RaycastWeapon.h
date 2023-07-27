@@ -42,8 +42,8 @@ protected:
 	FTimerHandle FireTimerHandle;
 	
 private:
-	virtual void TryFire() override;
-	virtual void MakeShot() override;
+	virtual void TryFire();
+	virtual void MakeShot();
 
 	void CalculateTrace(FVector& TraceStart, FVector& TraceEnd) const;
 	void Raycast(FVector TraceStart, FVector TraceEnd, FHitResult& HitResult) const;

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Actors/Weapons/Guns/Player/PlayerPistol.h"
 #include "Components/Weapons/BasicWeaponComponent.h"
 #include "PlayerWeaponComponent.generated.h"
 
@@ -16,6 +17,18 @@ class CEREBRALPARALYSIS_V2_API UPlayerWeaponComponent : public UBasicWeaponCompo
 
 	UPlayerWeaponComponent();
 
+protected:
+	UPROPERTY()
+	APlayerPistol* PistolWeapon;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<APlayerPistol> WeaponClass;
+	
+	bool IsFiring;
+
+	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	
 public:
 	UFUNCTION(BlueprintCallable)
 	void StartFire();
@@ -25,7 +38,4 @@ public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;
-
-protected:
-	bool IsFiring;
 };

@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "StaticData/ETeam.h"
 #include "BaseWeapon.generated.h"
 
 UCLASS()
@@ -16,9 +15,6 @@ public:
 	ABaseWeapon();
 	void SetDirection(const FRotator Direction) { FireDirection = Direction; }
 
-	virtual void TryFire();
-	virtual void MakeShot();
-
 protected:
 	virtual void BeginPlay() override;
 	
@@ -27,15 +23,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FName MuzzleSocketName = "MuzzleFlashSocket";
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	ETeam Team;
 	
 	UPROPERTY()
 	FRotator FireDirection;
-	
-	bool IsFiring;
-	bool CanFire = true;
 
 	FTransform GetMuzzleTransform() const;
 };

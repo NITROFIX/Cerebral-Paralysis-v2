@@ -11,6 +11,7 @@
  */
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnEasyHit);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMediumHit);
 
 UCLASS()
 class CEREBRALPARALYSIS_V2_API UMusicSequencerSubsystem : public UGameInstanceSubsystem
@@ -24,5 +25,13 @@ public:
 	void TakeEasyHit() const
 	{
 		OnEasyHit.Broadcast();
+	}
+
+	UPROPERTY(BlueprintAssignable)
+	FOnMediumHit OnMediumHit;
+
+	void TakeMediumHit() const
+	{
+		OnMediumHit.Broadcast();
 	}
 };

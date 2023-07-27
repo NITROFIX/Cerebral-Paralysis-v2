@@ -3,7 +3,25 @@
 
 #include "Components/Weapons/AIWeaponComponent.h"
 
-void UAIWeaponComponent::Fire()
+void UAIWeaponComponent::BeginPlay()
 {
-	CurrentWeapon->MakeShot();
+	Super::BeginPlay();
+	CurrentWeapon = SpawnWeapon<AAIBaseWeapon>(WeaponClass);
+	SetCurrentWeapon(CurrentWeapon);
+}
+
+void UAIWeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+}
+
+void UAIWeaponComponent::Fire(const EAIAttackType AttackType)
+{
+	if (!CurrentWeapon)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AAAAAAAAAA"));
+		return;
+	}
+	
+	CurrentWeapon->Fire(AttackType);
 }

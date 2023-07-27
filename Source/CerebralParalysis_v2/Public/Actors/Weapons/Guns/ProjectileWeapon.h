@@ -31,13 +31,6 @@ public:
 
 private:
 	FTimerHandle FireTimerHandle;
-	
-	virtual void TryFire() override;
-	virtual void MakeShot() override;
-	
-	void CalculateTrace(FVector& TraceStart, FVector& TraceEnd) const;
-
-	void ReloadFire();
 
 };
 

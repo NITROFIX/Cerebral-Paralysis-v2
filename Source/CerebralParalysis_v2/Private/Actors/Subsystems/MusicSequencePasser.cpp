@@ -20,3 +20,8 @@ void AMusicSequencePasser::TakeEasyHit() const
 {
 	MusicSequencer->TakeEasyHit();
 }
+
+void AMusicSequencePasser::TakeMediumHit() const
+{
+	MusicSequencer->TakeMediumHit();
+}
