@@ -16,6 +16,35 @@ class CEREBRALPARALYSIS_V2_API AHeroCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
+
+
+	UPROPERTY(EditDefaultsOnly)
+	float SpeedAmount;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	USpringArmComponent* SpringArmComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UCameraComponent* CameraComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPlayerWeaponComponent* WeaponComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float MaxTeleportDistance = 1000;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float TeleportChangeSpeed = 0.1;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float TeleportDistanceMultiplier = 100;
+	
+	float TeleportTime;
+	FTimerHandle TeleportTimerHandle;
+	FVector MoveVector;
+	FRotator LatestRotation;
+	bool bIsDashKeyPressed;
+
 	AHeroCharacter();
 
 protected:
@@ -31,20 +60,12 @@ public:
 	void MoveVertical(float Amount);
 	void StartFire();
 	void StopFire();
-	FVector MoveVector;
-	FRotator LatestRotation;
 
-	UPROPERTY(EditDefaultsOnly)
-	float SpeedAmount;
-
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
-	USpringArmComponent* SpringArmComponent;
-
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
-	UCameraComponent* CameraComponent;
-
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
-	UPlayerWeaponComponent* WeaponComponent;
+	void TeleportInDirection(float TeleportDistance);
+	void OnTeleportPressed();
+	void OnTeleportReleased();
+	void UpdateTeleportTime();
+	void UpdateTeleportVisualization();
 
 private:
 	FVector AdjustDirectionDependingOnObjectAngle(const FVector& Direction, const USceneComponent* TargetTransform) const;

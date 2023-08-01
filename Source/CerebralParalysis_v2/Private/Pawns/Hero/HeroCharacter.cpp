@@ -21,7 +21,6 @@ AHeroCharacter::AHeroCharacter()
 void AHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void AHeroCharacter::Tick(float DeltaTime)
@@ -31,6 +30,11 @@ void AHeroCharacter::Tick(float DeltaTime)
 	MoveVector = AdjustDirectionDependingOnObjectAngle(MoveVector, CameraComponent);
 	AddMovementInput(MoveVector, SpeedAmount);
 	WeaponComponent->SetDirection(LatestRotation);
+
+	UpdateTeleportVisualization();
+
+	if (bIsDashKeyPressed)
+		UpdateTeleportTime();
 }
 
 float AHeroCharacter::GetMovementDirection() const
@@ -59,6 +63,8 @@ void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis("Vertical", this, &AHeroCharacter::MoveVertical);
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AHeroCharacter::StartFire);
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &AHeroCharacter::StopFire);
+	PlayerInputComponent->BindAction("Dash", IE_Pressed, this, &AHeroCharacter::OnTeleportPressed);
+	PlayerInputComponent->BindAction("Dash", IE_Released, this, &AHeroCharacter::OnTeleportReleased);
 }
 
 void AHeroCharacter::StartFire()
@@ -82,7 +88,8 @@ void AHeroCharacter::MoveVertical(const float Amount)
 	MoveVector.Y = Amount;
 }
 
-FVector AHeroCharacter::AdjustDirectionDependingOnObjectAngle(const FVector& Direction, const USceneComponent* TargetTransform) const
+FVector AHeroCharacter::AdjustDirectionDependingOnObjectAngle(const FVector& Direction,
+                                                              const USceneComponent* TargetTransform) const
 {
 	const FRotator Rotation = TargetTransform->GetComponentRotation();
 	const FRotator AngleAxis(0.0f, Rotation.Yaw, 0.0f);
@@ -95,3 +102,59 @@ FVector AHeroCharacter::AdjustDirectionDependingOnObjectAngle(const FVector& Dir
 	return MoveDirection;
 }
 
+void AHeroCharacter::TeleportInDirection(const float TeleportDistance)
+{
+	if (TeleportDistance <= 0.0f)
+		return;
+
+	const FVector NewLocation = GetActorLocation() + GetActorForwardVector() * TeleportDistance;
+	SetActorLocation(NewLocation);
+}
+
+void AHeroCharacter::OnTeleportPressed()
+{
+	bIsDashKeyPressed = true;
+	TeleportTime = 0.0f;
+}
+
+void AHeroCharacter::OnTeleportReleased()
+{
+	bIsDashKeyPressed = false;
+	GetWorldTimerManager().ClearTimer(TeleportTimerHandle);
+	const float TeleportDistance = FMath::Clamp(TeleportTime * TeleportDistanceMultiplier, 0.0f, MaxTeleportDistance);
+	// Adjust the multiplier to control the teleport speed.
+	TeleportInDirection(TeleportDistance);
+}
+
+void AHeroCharacter::UpdateTeleportTime()
+{
+	TeleportTime += TeleportChangeSpeed;
+}
+
+void AHeroCharacter::UpdateTeleportVisualization()
+{
+	if (!bIsDashKeyPressed)
+		return;
+	
+	// Calculate the teleport distance based on how long the Dash key was held.
+	float TeleportDistance = FMath::Clamp(TeleportTime * TeleportDistanceMultiplier, 0.0f, MaxTeleportDistance);
+
+	// Get the destination location where the player will teleport.
+	FVector DestinationLocation = GetActorLocation() + GetActorForwardVector() * TeleportDistance;
+
+	// Calculate the circle's up vector as perpendicular to the player's forward vector and the world up vector.
+	
+	// Calculate the circle's up vector as perpendicular to the player's forward vector and the world up vector.
+	FVector CircleUpVector = FVector::VectorPlaneProject(FVector::UpVector, GetActorForwardVector()).GetSafeNormal();
+
+	// Draw the teleportation indicator (debug circle) at the destination location with the correct orientation.
+	FVector Center = DestinationLocation;
+	float Radius = 50.0f; // Adjust the radius of the circle as needed.
+	int32 NumPoints = 36; // Number of points used to approximate the circle (higher values give smoother circles).
+
+	DrawDebugCircle(GetWorld(), Center, Radius, NumPoints, FColor::Blue, false, -1, 0, 5.0f, CircleUpVector); // Pass the circle's up vector as the last argument.the circle's up vector as the last argument.
+	// Draw the teleportation line (debug line) connecting the player to the destination.
+	DrawDebugLine(GetWorld(), GetActorLocation(), DestinationLocation, FColor::Blue, false, -1, 0, 5.0f);
+	
+	// Note: The last three parameters (0, 5.0f) specify the line thickness and duration for both debug shapes. You can adjust these values as needed.
+}
