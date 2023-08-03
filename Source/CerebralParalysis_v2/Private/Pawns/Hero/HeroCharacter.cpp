@@ -12,7 +12,7 @@ AHeroCharacter::AHeroCharacter()
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArmComponent");
 	SpringArmComponent->SetupAttachment(GetRootComponent());
 
-	CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
+	CameraComponent = CreateDefaultSubobject<UACameraMover>("CameraComponent");
 	CameraComponent->SetupAttachment(SpringArmComponent, USpringArmComponent::SocketName);
 
 	WeaponComponent = CreateDefaultSubobject<UPlayerWeaponComponent>("Weapon Component");

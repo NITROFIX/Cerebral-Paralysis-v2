@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Actors/Utilities/CameraMover.h"
 #include "Camera/CameraComponent.h"
 #include "Components/Weapons/BasicWeaponComponent.h"
 #include "Components/Weapons/PlayerWeaponComponent.h"
@@ -25,7 +26,7 @@ public:
 	USpringArmComponent* SpringArmComponent;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	UCameraComponent* CameraComponent;
+	UACameraMover* CameraComponent;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UPlayerWeaponComponent* WeaponComponent;
