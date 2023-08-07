@@ -5,7 +5,7 @@
 
 void UEnemyFactorySubsystem::SpawnZombieSoldier(const FVector Position) const
 {
-	if (!GetWorld() || !DataLoaded)
+	if (!DataLoaded || !GetWorld())
 		return;
 
 	FActorSpawnParameters SpawnParameters;
