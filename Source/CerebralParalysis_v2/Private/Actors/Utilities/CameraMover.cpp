@@ -20,6 +20,9 @@ void UACameraMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	if (!GetWorld())
+    	return;
+
 	if (!Player)
 	{
 		FindPlayer();
@@ -37,6 +40,8 @@ void UACameraMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 	{
 		MoveCameraInstantly(TargetPosition);
 	}
+	
+
 }
 
 void UACameraMover::FindPlayer()
