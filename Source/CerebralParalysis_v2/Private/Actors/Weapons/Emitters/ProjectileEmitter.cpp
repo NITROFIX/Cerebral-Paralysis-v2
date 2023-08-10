@@ -22,6 +22,4 @@ void AProjectileEmitter::SpawnBullet(const FVector& Position, const FRotator Dir
 		->GetGameInstance()
 		->GetSubsystem<UWeaponObjectsFactorySubsystem>()
 		->CreateBullet(Projectile, Position, Direction);
-
-	UE_LOG(LogTemp, Warning, TEXT("ALMOST"));
 }

@@ -17,11 +17,5 @@ void UAIWeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 void UAIWeaponComponent::Fire(const EAIAttackType AttackType)
 {
-	if (!CurrentWeapon)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AAAAAAAAAA"));
-		return;
-	}
-	
 	CurrentWeapon->Fire(AttackType);
 }

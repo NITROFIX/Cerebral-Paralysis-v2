@@ -1,5 +1,7 @@
 ﻿#include "Infrastructure/States/LoadLevelState/ULoadLevelState.h"
 #include "Infrastructure/Subsystems/LoadLevelSubsystem.h"
+#include "Infrastructure/Subsystems/Factories/PlayerProviderSubsystem.h"
+#include "Infrastructure/Subsystems/Generic/CursorHandlerSubsystem.h"
 #include "Infrastructure/Subsystems/Providers/FirstSceneProviderSubsystem.h"
 #include "StaticData/LevelNames.h"
 
@@ -15,5 +17,6 @@ void ULoadLevelState::Enter()
 
 void ULoadLevelState::OnLoaded(UWorld* World) const
 {
-	// =_=
+	APawn* Player = World->GetGameInstance()->GetSubsystem<UPlayerProviderSubsystem>()->GetPlayer();
+	World->GetGameInstance()->GetSubsystem<UCursorHandlerSubsystem>()->ShowCursor(Cast<APlayerController>(Player->GetController()));
 }
