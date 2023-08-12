@@ -29,7 +29,7 @@ void AHeroCharacter::Tick(float DeltaTime)
 
 	MoveVector = AdjustDirectionDependingOnObjectAngle(MoveVector, CameraComponent);
 	AddMovementInput(MoveVector, SpeedAmount);
-	WeaponComponent->SetDirection(LatestRotation);
+	WeaponComponent->SetAimLocation(AimLocation);
 
 	UpdateTeleportVisualization();
 
@@ -45,10 +45,13 @@ float AHeroCharacter::GetMovementDirection() const
 	return FMath::RadiansToDegrees(AngleBetween) * FMath::Sign(CrossProduct.Z);
 }
 
-void AHeroCharacter::SetLookRotation(FVector_NetQuantize Vector)
+void AHeroCharacter::SetLookRotation(FVector_NetQuantize NewAimLocation)
 {
-	Vector.Z = GetActorLocation().Z;
-	const FVector FinalVector = Vector - GetActorLocation();
+
+	NewAimLocation.Z = GetActorLocation().Z;
+	AimLocation = NewAimLocation;
+
+	const FVector FinalVector = NewAimLocation - GetActorLocation();
 	const FRotator NewRotation = FinalVector.Rotation();
 	LatestRotation = NewRotation;
 	RootComponent->SetWorldRotation(NewRotation);

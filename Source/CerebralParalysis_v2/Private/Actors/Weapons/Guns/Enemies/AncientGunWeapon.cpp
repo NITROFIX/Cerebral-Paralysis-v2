@@ -20,7 +20,7 @@ void AAncientGunWeapon::BeginPlay()
 void AAncientGunWeapon::Fire(EAIAttackType AttackType) 
 {
 	if (AttackType == EAIAttackType::Easy)
-		EasyHitEmitter->Emit(GetMuzzleTransform().GetLocation(), FireDirection);
+		EasyHitEmitter->Emit(GetMuzzleTransform().GetLocation(), (TargetLocation - GetMuzzleTransform().GetLocation()).Rotation());
 	else if (AttackType == EAIAttackType::Medium)
-		MediumHitEmitter->Emit(GetMuzzleTransform().GetLocation(), FireDirection);
+		MediumHitEmitter->Emit(GetMuzzleTransform().GetLocation(), (TargetLocation - GetMuzzleTransform().GetLocation()).Rotation());
 }

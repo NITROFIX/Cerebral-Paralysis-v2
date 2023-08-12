@@ -12,6 +12,7 @@ UBasicWeaponComponent::UBasicWeaponComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
+
 void UBasicWeaponComponent::DestroyWeapon(ABaseWeapon* Weapon) const
 {
 	Weapon->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
@@ -26,10 +27,10 @@ void UBasicWeaponComponent::AttachWeaponToSocket(ABaseWeapon* Weapon, USceneComp
 	Weapon->AttachToComponent(SceneComponent, AttachmentRules, Name);
 }
 
-void UBasicWeaponComponent::SetDirection(const FRotator Direction) const
+void UBasicWeaponComponent::SetAimLocation(FVector TargetLocation) const
 {
 	if (!CurrentBaseWeapon)
 		return;;
 
-	CurrentBaseWeapon->SetDirection(Direction);
+	CurrentBaseWeapon->SetAimLocation(TargetLocation);
 }

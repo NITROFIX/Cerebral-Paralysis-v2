@@ -53,7 +53,7 @@ void ARaycastWeapon::CalculateTrace(FVector& TraceStart, FVector& TraceEnd) cons
 	TraceStart = SocketTransform.GetLocation();
 
 	const double HalfRad = FMath::DegreesToRadians(BulletSpread);
-	const FVector ShootDirection = FMath::VRandCone(FireDirection.Vector(), HalfRad);
+	const FVector ShootDirection = FMath::VRandCone((TargetLocation - TraceStart).Rotation().Vector(), HalfRad);
 
 	TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
 }

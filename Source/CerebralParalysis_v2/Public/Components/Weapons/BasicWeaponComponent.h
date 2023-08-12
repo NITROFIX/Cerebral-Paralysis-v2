@@ -25,7 +25,7 @@ public:
 	UBasicWeaponComponent();
 
 	UFUNCTION(BlueprintCallable)
-	void SetDirection(FRotator Direction) const;
+	void SetAimLocation(FVector TargetLocation) const;
 
 protected:
 	void DestroyWeapon(ABaseWeapon* Weapon) const;

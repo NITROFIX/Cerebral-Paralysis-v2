@@ -13,7 +13,7 @@ class CEREBRALPARALYSIS_V2_API ABaseWeapon : public AActor
 
 public:
 	ABaseWeapon();
-	void SetDirection(const FRotator Direction) { FireDirection = Direction; }
+	void SetAimLocation(const FVector NewTargetLocation) { TargetLocation = NewTargetLocation; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -25,7 +25,7 @@ protected:
 	FName MuzzleSocketName = "MuzzleFlashSocket";
 	
 	UPROPERTY()
-	FRotator FireDirection;
+	FVector TargetLocation;
 
 	FTransform GetMuzzleTransform() const;
 };

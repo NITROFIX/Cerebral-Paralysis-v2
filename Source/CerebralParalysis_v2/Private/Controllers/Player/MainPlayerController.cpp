@@ -3,6 +3,7 @@
 
 #include "Controllers/Player/MainPlayerController.h"
 
+#include "Components/CapsuleComponent.h"
 #include "Pawns/Hero/HeroCharacter.h"
 
 void AMainPlayerController::Tick(float DeltaSeconds)
@@ -10,19 +11,23 @@ void AMainPlayerController::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	ACharacter* Character2 = GetCharacter();
-	
+
 	if (Character2 == nullptr)
 		return;
-	
-	FHitResult FHit;
-	GetHitResultUnderCursor(ECollisionChannel::ECC_WorldStatic, true, FHit);
 
-	AHeroCharacter* Character3;
-	Character3 = Cast<AHeroCharacter>(Character2);
+	AHeroCharacter* Character3 = Cast<AHeroCharacter>(Character2);
 
-	Character3->SetLookRotation(FHit.Location);
+	if (Character3)
+	{
+		FVector WorldLocation, WorldDirection;
 
-	
-	
-	
+		FVector2D MousePosition;
+		GetMousePosition(MousePosition.X, MousePosition.Y);
+		
+		DeprojectScreenPositionToWorld(MousePosition.X, MousePosition.Y, WorldLocation, WorldDirection);
+
+		const FVector PlaneIntersectionPoint = WorldLocation + (WorldDirection * ((GetCharacter()->GetActorLocation().Z - WorldLocation.Z) / WorldDirection.Z));
+
+		Character3->SetLookRotation(PlaneIntersectionPoint);
+	}
 }

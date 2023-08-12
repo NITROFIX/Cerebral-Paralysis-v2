@@ -17,8 +17,6 @@ class CEREBRALPARALYSIS_V2_API AHeroCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-
-
 	UPROPERTY(EditDefaultsOnly)
 	float SpeedAmount;
 
@@ -39,7 +37,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float TeleportDistanceMultiplier = 100;
-	
+
 	float TeleportTime;
 	FTimerHandle TeleportTimerHandle;
 	FVector MoveVector;
@@ -51,10 +49,11 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	virtual void Tick(float DeltaTime) override;
 	float GetMovementDirection() const;
-	void SetLookRotation(FVector_NetQuantize Vector);
+	void SetLookRotation(FVector_NetQuantize NewAimLocation);
+	FVector_NetQuantize GetAimLocation() const { return AimLocation; }
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void MoveHorizontal(float Amount);
@@ -69,6 +68,9 @@ public:
 	void UpdateTeleportVisualization();
 
 private:
-	FVector AdjustDirectionDependingOnObjectAngle(const FVector& Direction, const USceneComponent* TargetTransform) const;
-};
+	UPROPERTY()
+	FVector_NetQuantize AimLocation;
 
+	FVector AdjustDirectionDependingOnObjectAngle(const FVector& Direction,
+	                                              const USceneComponent* TargetTransform) const;
+};

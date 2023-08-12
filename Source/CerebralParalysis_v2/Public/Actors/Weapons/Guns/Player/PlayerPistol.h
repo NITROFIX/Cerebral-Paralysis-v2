@@ -15,6 +15,8 @@ class CEREBRALPARALYSIS_V2_API APlayerPistol : public ABaseWeapon
 {
 	GENERATED_BODY()
 
+	
+
 protected:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ASingleShotEmitter> EmitterClass;

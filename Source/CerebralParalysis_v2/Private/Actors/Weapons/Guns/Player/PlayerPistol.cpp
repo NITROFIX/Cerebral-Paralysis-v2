@@ -3,6 +3,9 @@
 
 #include "Actors/Weapons/Guns/Player/PlayerPistol.h"
 
+#include "Components/Weapons/WeaponFXComponent.h"
+
+
 void APlayerPistol::BeginPlay()
 {
 	Super::BeginPlay();
@@ -16,7 +19,7 @@ void APlayerPistol::Fire()
 		return;
 
 	
-	Emitter->Emit(GetMuzzleTransform().GetLocation(), FireDirection);
+	Emitter->Emit(GetMuzzleTransform().GetLocation(),  (TargetLocation - GetMuzzleTransform().GetLocation()).Rotation());
 	SetReloading();
 }
 

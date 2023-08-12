@@ -12,5 +12,5 @@ class CEREBRALPARALYSIS_V2_API AMainPlayerController : public APlayerController
 	GENERATED_BODY()
 
 	virtual void Tick(float DeltaSeconds) override;
-	
+	FVector CalculatePointWithHeight(const FVector& Point1, const FVector& Point2, float Height);
 };
