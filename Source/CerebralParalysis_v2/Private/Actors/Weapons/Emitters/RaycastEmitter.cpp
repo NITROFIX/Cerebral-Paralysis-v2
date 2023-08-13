@@ -65,7 +65,7 @@ void ARaycastEmitter::Damage(const FHitResult HitResult) const
 	if (!Health)
 		return;
 
-	//Health->TakeDamage(Team, DamageAmount);
+	Health->TakeDamage(Team, DamageAmount);
 }
 
 void ARaycastEmitter::ReloadFire()

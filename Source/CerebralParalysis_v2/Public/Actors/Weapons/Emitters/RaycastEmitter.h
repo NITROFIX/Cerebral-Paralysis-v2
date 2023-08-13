@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Actors/Weapons/Emitters/SingleShotEmitter.h"
+#include "StaticData/ETeam.h"
 #include "RaycastEmitter.generated.h"
 
 class UNiagaraSystem;
@@ -21,12 +22,17 @@ class CEREBRALPARALYSIS_V2_API ARaycastEmitter : public ASingleShotEmitter
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UWeaponFXComponent* WeaponFXComponent2;
-	
+
+
+
 	virtual void Emit(const FVector& Position, const FRotator Direction) override;
 
 protected:
 	UPROPERTY(EditDefaultsOnly)
 	float DamageAmount;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	ETeam Team;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float TraceMaxDistance = 1500;

@@ -48,9 +48,10 @@ protected:
 			return nullptr;
 
 		Weapon->SetOwner(Character);
+		Weapon->SetLifeSpan(0);
 
 		AttachWeaponToSocket(Weapon, Character->GetMesh(), SocketName);
-
+		
 		return Weapon;
 	}
 

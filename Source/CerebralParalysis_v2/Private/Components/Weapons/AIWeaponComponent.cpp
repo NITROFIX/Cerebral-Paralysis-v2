@@ -13,6 +13,7 @@ void UAIWeaponComponent::BeginPlay()
 void UAIWeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
+	DestroyWeapon(CurrentWeapon);
 }
 
 void UAIWeaponComponent::Fire(const EAIAttackType AttackType)
