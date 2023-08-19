@@ -3,8 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Infrastructure/States/LoadLevelState/ULoadLevelState.h"
-#include "Subsystems/Subsystem.h"
+#include "Delegates/Delegates.h"
 #include "LoadLevelSubsystem.generated.h"
 
 /**

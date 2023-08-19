@@ -7,6 +7,7 @@
 #include "Actors/Weapons/Emitters/SingleShotEmitter.h"
 #include "ProjectileEmitter.generated.h"
 
+class UWeaponObjectsFactorySubsystem;
 /**
  * 
  */
@@ -18,6 +19,12 @@ class CEREBRALPARALYSIS_V2_API AProjectileEmitter : public ASingleShotEmitter
 protected:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ABaseBullet> Projectile;
+
+	UPROPERTY()
+	UWeaponObjectsFactorySubsystem* WeaponObjectsFactorySubsystem;
+
+	virtual void BeginPlay() override;
+	virtual void Construct();
 
 public:
 	virtual void Emit(const FVector& Position, const FRotator Direction) override;

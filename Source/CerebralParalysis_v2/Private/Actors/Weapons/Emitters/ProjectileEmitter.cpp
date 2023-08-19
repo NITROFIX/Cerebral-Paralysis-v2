@@ -8,6 +8,19 @@
 
 class ABaseBullet;
 
+void AProjectileEmitter::BeginPlay()
+{
+	Super::BeginPlay();
+	Construct();
+}
+
+void AProjectileEmitter::Construct()
+{
+	WeaponObjectsFactorySubsystem = GetWorld()
+	                                ->GetGameInstance()
+	                                ->GetSubsystem<UWeaponObjectsFactorySubsystem>();
+}
+
 void AProjectileEmitter::Emit(const FVector& Position, const FRotator Direction)
 {
 	if (!GetWorld())
@@ -18,8 +31,5 @@ void AProjectileEmitter::Emit(const FVector& Position, const FRotator Direction)
 
 void AProjectileEmitter::SpawnBullet(const FVector& Position, const FRotator Direction) const
 {
-	GetWorld()
-		->GetGameInstance()
-		->GetSubsystem<UWeaponObjectsFactorySubsystem>()
-		->CreateBullet(Projectile, Position, Direction);
+	WeaponObjectsFactorySubsystem->CreateBullet(Projectile, Position, Direction);
 }
