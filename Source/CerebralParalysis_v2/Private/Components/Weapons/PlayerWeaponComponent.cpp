@@ -30,6 +30,7 @@ void UPlayerWeaponComponent::StartFire()
 		return;
 
 	IsFiring = true;
+	PistolWeapon->StartFire();
 }
 
 void UPlayerWeaponComponent::StopFire()
@@ -38,13 +39,11 @@ void UPlayerWeaponComponent::StopFire()
 		return;
 
 	IsFiring = false;
+	PistolWeapon->StopFire();
 }
 
 void UPlayerWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType,
                                            FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	if (IsFiring)
-		PistolWeapon->Fire();
 }

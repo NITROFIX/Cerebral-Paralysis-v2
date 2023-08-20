@@ -13,8 +13,10 @@ USTRUCT(BlueprintType)
 struct CEREBRALPARALYSIS_V2_API FEnemyFactoryData
 {
 	GENERATED_BODY()
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<AActor> ZombieSoldier;
-	
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<AActor> Ancient;
 };

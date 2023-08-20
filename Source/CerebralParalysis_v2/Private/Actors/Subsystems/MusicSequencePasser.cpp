@@ -16,6 +16,11 @@ void AMusicSequencePasser::BeginPlay()
 	MusicSequencer = GetGameInstance()->GetSubsystem<UMusicSequencerSubsystem>();
 }
 
+void AMusicSequencePasser::TakePlayerHit() const
+{
+	MusicSequencer->TakePlayerHit();
+}
+
 void AMusicSequencePasser::TakeEasyHit() const
 {
 	MusicSequencer->TakeEasyHit();

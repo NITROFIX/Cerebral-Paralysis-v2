@@ -26,7 +26,13 @@ public:
 		Data = NewData;
 		DataLoaded = true;
 	}
-
+	
 	UFUNCTION(BlueprintCallable)
 	void SpawnZombieSoldier(const FVector Position) const;
+
+	UFUNCTION(BlueprintCallable)
+	void SpawnAncient(FVector Position) const;
+
+private:
+	void SpawnActor(TSubclassOf<AActor> ActorToSpawn, FVector Position) const;
 };

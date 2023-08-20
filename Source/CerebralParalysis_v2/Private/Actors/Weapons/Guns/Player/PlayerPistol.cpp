@@ -2,40 +2,43 @@
 
 
 #include "Actors/Weapons/Guns/Player/PlayerPistol.h"
+#include "Infrastructure/Subsystems/MusicSequencerSubsystem.h"
 
-#include "Components/Weapons/WeaponFXComponent.h"
 
+void APlayerPistol::Construct()
+{
+	MusicSequencerSubsystem = GetGameInstance()->GetSubsystem<UMusicSequencerSubsystem>();
+}
 
 void APlayerPistol::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Construct();
+
 	Emitter = Cast<ASingleShotEmitter>(GetWorld()->SpawnActor(EmitterClass));
 	Emitter->SetOwner(GetOwner());
-}
-
-void APlayerPistol::Fire()
-{
-	if (CanFire == false)
-		return;
-
 	
-	Emitter->Emit(GetMuzzleTransform().GetLocation(),  (TargetLocation - GetMuzzleTransform().GetLocation()).Rotation());
-	SetReloading();
+	MusicSequencerSubsystem->OnPlayerHit.AddDynamic(this, &APlayerPistol::OnMusicPlayerHit);
 }
 
-void APlayerPistol::SetReloading()
+void APlayerPistol::ForceFire()
 {
-	GetWorldTimerManager().SetTimer(FireTimerHandle,
-	                                this,
-	                                &APlayerPistol::ReloadFire,
-	                                ReloadTime,
-	                                false,
-	                                ReloadTime);
-
-	CanFire = false;
+	Emitter->Emit(GetMuzzleTransform().GetLocation(), (TargetLocation - GetMuzzleTransform().GetLocation()).Rotation());
 }
 
-void APlayerPistol::ReloadFire()
+void APlayerPistol::StartFire()
 {
-	CanFire = true;
+	IsFiring = true;
+}
+
+void APlayerPistol::StopFire()
+{
+	IsFiring = false;
+}
+
+void APlayerPistol::OnMusicPlayerHit()
+{
+	if (IsFiring)
+		ForceFire();
 }

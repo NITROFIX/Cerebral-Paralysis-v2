@@ -14,7 +14,10 @@ class CEREBRALPARALYSIS_V2_API AMusicSequencePasser : public AActor
 	
 public:	
 	AMusicSequencePasser();
-
+	
+	UFUNCTION(BlueprintCallable)
+	void TakePlayerHit() const;
+	
 	UFUNCTION(BlueprintCallable)
 	void TakeEasyHit() const;
 
