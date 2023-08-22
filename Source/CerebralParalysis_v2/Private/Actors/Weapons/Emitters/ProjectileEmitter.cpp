@@ -29,7 +29,10 @@ void AProjectileEmitter::Emit(const FVector& Position, const FRotator Direction)
 	SpawnBullet(Position, Direction);
 }
 
-void AProjectileEmitter::SpawnBullet(const FVector& Position, const FRotator Direction) const
+void AProjectileEmitter::SpawnBullet(const FVector& Position, FRotator Direction) const
 {
+	float RandomYawOffset = FMath::RandRange(-Scatter, Scatter);
+	Direction.Yaw += RandomYawOffset;
+	
 	WeaponObjectsFactorySubsystem->CreateBullet(Projectile, Position, Direction);
 }
